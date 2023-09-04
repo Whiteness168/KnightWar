@@ -1,0 +1,15 @@
+D:\C#project\KnightWar\KnightWar\obj\Debug\net6.0\KnightWar.csproj.AssemblyReference.cache
+D:\C#project\KnightWar\KnightWar\obj\Debug\net6.0\KnightWar.GeneratedMSBuildEditorConfig.editorconfig
+D:\C#project\KnightWar\KnightWar\obj\Debug\net6.0\KnightWar.AssemblyInfoInputs.cache
+D:\C#project\KnightWar\KnightWar\obj\Debug\net6.0\KnightWar.AssemblyInfo.cs
+D:\C#project\KnightWar\KnightWar\obj\Debug\net6.0\KnightWar.csproj.CoreCompileInputs.cache
+D:\C#project\KnightWar\KnightWar\bin\Debug\net6.0\KnightWar.exe
+D:\C#project\KnightWar\KnightWar\bin\Debug\net6.0\KnightWar.deps.json
+D:\C#project\KnightWar\KnightWar\bin\Debug\net6.0\KnightWar.runtimeconfig.json
+D:\C#project\KnightWar\KnightWar\bin\Debug\net6.0\KnightWar.dll
+D:\C#project\KnightWar\KnightWar\bin\Debug\net6.0\KnightWar.pdb
+D:\C#project\KnightWar\KnightWar\obj\Debug\net6.0\KnightWar.dll
+D:\C#project\KnightWar\KnightWar\obj\Debug\net6.0\refint\KnightWar.dll
+D:\C#project\KnightWar\KnightWar\obj\Debug\net6.0\KnightWar.pdb
+D:\C#project\KnightWar\KnightWar\obj\Debug\net6.0\KnightWar.genruntimeconfig.cache
+D:\C#project\KnightWar\KnightWar\obj\Debug\net6.0\ref\KnightWar.dll
