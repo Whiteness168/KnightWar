@@ -27,7 +27,7 @@ namespace KnightWar
             if (words[0] == "add" && words[1] == "****")
             {
                 var randValue = new Random();
-                int randNumber = randValue.Next(1, 4);
+                int randNumber = randValue.Next(1, 3);
                 switch (randNumber) 
                 {
                     case 1: Army.Add(new Archer(0, 0, 0));
@@ -42,7 +42,7 @@ namespace KnightWar
             {
                 FighterType fighter = (FighterType)Enum.Parse(typeof(FighterType), words[1], ignoreCase: true);
 
-                for (var i = 2; i <= 3; i++)
+                for (var i = 2; i <= 4; i++)
                 {
 
                     int.TryParse(words[i], out _characteristics[i - 2]);
@@ -62,18 +62,6 @@ namespace KnightWar
                         break;
                     default:
                         break;
-                }
-
-                if (fighter == FighterType.Archer)
-                {
-                }
-                if (fighter == FighterType.Infantry)
-                {
-                    Army.Add(new Infantry(_characteristics[0], _characteristics[1], _characteristics[2]));
-                }
-                if (fighter == FighterType.Horseman)
-                {
-                    Army.Add(new Horseman(_characteristics[0], _characteristics[1], _characteristics[2]));
                 }
             }
         }

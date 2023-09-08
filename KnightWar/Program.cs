@@ -21,84 +21,84 @@ namespace KnightWar
             var armySecond = new Army();
             var fight = new FightController();
             var CreateFighter = new ArmyController();
-            char control;
+            char control = 'w';
 
-            do
-            {
-                Console.WriteLine("Добавьте нового бойца в первую армию, для этого введите add тип бойца: Infantry, Archer или Horseman \n" +
-                    " и задайте ему желаемые характеристики уровня, брони и скорости, если хотите какую то характеристику сделать случайной введите *");
-                Console.WriteLine("Если хотите добавить полностью случайного бойца введите add ****");
+             do
+             {
+                 Console.WriteLine("Добавьте нового бойца в первую армию, для этого введите add тип бойца: Infantry, Archer или Horseman \n" +
+                     " и задайте ему желаемые характеристики уровня, брони и скорости, если хотите какую то характеристику сделать случайной введите *");
+                 Console.WriteLine("Если хотите добавить полностью случайного бойца введите add ****");
 
-                CreateFighter.AddFighterInArmy(armyFirst.ArmyFighters);
+                 CreateFighter.AddFighterInArmy(armyFirst.ArmyFighters);
 
-                Console.WriteLine("Нажмите у чтобы добавить бойца в первую армию");
-                Console.WriteLine("Нажмите n чтобы закончить заполнение первой армии и перейти ко второй");
-                control = char.Parse(Console.ReadLine());
-            } while (control == 'y');
+                 Console.WriteLine("Нажмите у чтобы добавить бойца в первую армию");
+                 Console.WriteLine("Нажмите n чтобы закончить заполнение первой армии и перейти ко второй");
+                 control = char.Parse(Console.ReadLine());
+             } while (control == 'y');
 
-            do
-            {
-                Console.WriteLine("Добавьте нового бойца во вторую армию, для этого введите add тип бойца: Infantry, Archer или Horseman \n" +
-                    " и задайте ему желаемые характеристики уровня, брони и скорости, если хотите какую то характеристику сделать случайной введите *");
-                Console.WriteLine("Если хотите добавить полностью случайного бойца введите add ****");
+             do
+             {
+                 Console.WriteLine("Добавьте нового бойца во вторую армию, для этого введите add тип бойца: Infantry, Archer или Horseman \n" +
+                     " и задайте ему желаемые характеристики уровня, брони и скорости, если хотите какую то характеристику сделать случайной введите *");
+                 Console.WriteLine("Если хотите добавить полностью случайного бойца введите add ****");
 
-                CreateFighter.AddFighterInArmy(armySecond.ArmyFighters);
+                 CreateFighter.AddFighterInArmy(armySecond.ArmyFighters);
 
-                Console.WriteLine("Нажмите у чтобы добавить бойца в первую армию");
-                Console.WriteLine("Нажмите n чтобы закончить заполнение второй армии и перейти к битве");
-                control = char.Parse(Console.ReadLine());
-            } while (control == 'y');
+                 Console.WriteLine("Нажмите у чтобы добавить бойца в первую армию");
+                 Console.WriteLine("Нажмите n чтобы закончить заполнение второй армии и перейти к битве");
+                 control = char.Parse(Console.ReadLine());
+             } while (control == 'y');
 
-            do
-            {
+             do
+             {
 
-                fight.WhoIsFirst();
-                Thread.Sleep(700);
+                 fight.WhoIsFirst();
+                 Thread.Sleep(700);
 
-                do
-                {
-                    if (fight.ControlWent)
-                    {
-                        fight.Battle(armyFirst.ArmyFighters, armySecond.ArmyFighters,
-                            armyFirst.GetSortListFasterFighter(armyFirst.HowPartArmyDidNotMove()), armyFirst.GetFivePercentArmy());
-                        armySecond.DeleteDeadUnit();
-                        fight.ControlWent = false;
-                    }
-                    else
-                    {
-                        fight.Battle(armySecond.ArmyFighters, armyFirst.ArmyFighters,
-                             armySecond.GetSortListFasterFighter(armySecond.HowPartArmyDidNotMove()), armySecond.GetSixPercentArmy());
-                        armyFirst.DeleteDeadUnit();
-                        fight.ControlWent = true;
-                    }
+                 do
+                 {
+                     if (fight.ControlWent)
+                     {
+                         fight.Battle(armyFirst, armySecond,
+                             armyFirst.GetSortListFasterFighter(armyFirst.HowPartArmyDidNotMove()), armyFirst.GetPartArmy(0.05));
+                         armySecond.DeleteDeadUnit();
+                         fight.ControlWent = false;
+                     }
+                     else
+                     {
+                         fight.Battle(armySecond, armyFirst,
+                              armySecond.GetSortListFasterFighter(armySecond.HowPartArmyDidNotMove()), armySecond.GetPartArmy(0.06));
+                         armyFirst.DeleteDeadUnit();
+                         fight.ControlWent = true;
+                     }
 
-                    Thread.Sleep(700);
+                     Thread.Sleep(700);
 
-                    if (fight.ControlWent)
-                    {
-                        fight.Battle(armyFirst.ArmyFighters, armySecond.ArmyFighters,
-                            armyFirst.GetSortListFasterFighter(armyFirst.HowPartArmyDidNotMove()), armyFirst.GetFivePercentArmy());
-                        armySecond.DeleteDeadUnit();
-                        fight.ControlWent = false;
-                    }
-                    else
-                    {
-                        fight.Battle(armySecond.ArmyFighters, armyFirst.ArmyFighters,
-                             armySecond.GetSortListFasterFighter(armySecond.HowPartArmyDidNotMove()), armySecond.GetSixPercentArmy());
-                        armyFirst.DeleteDeadUnit();
-                        fight.ControlWent = true;
-                    }
+                     if (fight.ControlWent)
+                     {
+                         fight.Battle(armyFirst, armySecond,
+                             armyFirst.GetSortListFasterFighter(armyFirst.HowPartArmyDidNotMove()), armyFirst.GetPartArmy(0.05));
+                         armySecond.DeleteDeadUnit();
+                         fight.ControlWent = false;
+                     }
+                     else
+                     {
+                         fight.Battle(armySecond, armyFirst,
+                              armySecond.GetSortListFasterFighter(armySecond.HowPartArmyDidNotMove()), armySecond.GetPartArmy(0.06));
+                         armyFirst.DeleteDeadUnit();
+                         fight.ControlWent = true;
+                     }
 
-                    Thread.Sleep(700);
+                     Thread.Sleep(700);
 
-                } while (!armyFirst.EveryoneMovedCheck() && !armySecond.EveryoneMovedCheck());
+                 } while (!armyFirst.EveryoneMovedCheck() && !armySecond.EveryoneMovedCheck());
 
-                armyFirst.MoveZeroing();
-                armySecond.MoveZeroing();
+                 armyFirst.MoveZeroing();
+                 armySecond.MoveZeroing();
 
-            } while (armyFirst.CheckHealthArmy() && armySecond.CheckHealthArmy());
-            Console.WriteLine();
-            fight.ShowWinner(armyFirst.ArmyFighters, armySecond.ArmyFighters); 
+             } while (armyFirst.CheckHealthArmy() && armySecond.CheckHealthArmy());
+             Console.WriteLine();
+             fight.ShowWinner(armyFirst.ArmyFighters, armySecond.ArmyFighters); 
 
 
         }

@@ -28,13 +28,14 @@ namespace KnightWar
             }
         }
 
-        public void Battle(List<Fighter> attackingArmy, List<Fighter> AttackedArmy, List<int> serialNumberList, double partArmy)
+        public void Battle(Army attackingArmy, Army AttackedArmy, List<int> serialNumberList, double partArmy)
         {
+            var rand = new Random();
             for (int i = 0; i < serialNumberList.Count; i++)
             {
-                if (i <= partArmy  && AttackedArmy.Count > i)
+                if (i <= partArmy)
                 {
-                    attackingArmy[serialNumberList[i]].Attack(AttackedArmy[i]);
+                    attackingArmy.ArmyFighters[serialNumberList[i]].Attack(AttackedArmy, rand.Next(0, AttackedArmy.ArmyFighters.Count));
                 }
             }
         }

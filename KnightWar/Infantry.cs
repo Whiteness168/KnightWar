@@ -20,5 +20,19 @@ namespace KnightWar
         {
             return "Infantry";
         }
+
+        public override bool Attack(Army unit, int fighterIndex)
+        {
+            var type = unit.ArmyFighters[fighterIndex].WhoAmI();
+            if (FighterType.Archer == (FighterType)Enum.Parse(typeof(FighterType), type, ignoreCase: true))
+            {
+                Damage = 10;
+                return base.Attack(unit, fighterIndex);
+            }
+            else 
+            { 
+                return base.Attack(unit, fighterIndex);
+            }
+        }
     }
 }

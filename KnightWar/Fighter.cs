@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Security;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,11 +16,18 @@ namespace KnightWar
         public int Ammunition { get; protected set; }
         public int Speed { get; protected set; }
         public int Health { get; protected set; }
-        public int Move { get; protected set; }
+        public bool Move { get; protected set; }
+
+        public int Damage { get; protected set; }
 
         public abstract FighterType FighterType { get; }
 
-        public const int MaxLevel = 5;
+        protected const int MaxLevel = 5;
+        protected const int MinLevel = 1;
+        protected const int MaxAmmunition = 5;
+        protected const int MinAmmunition = 1;
+        protected const int MaxSpeed = 5;
+        protected const int MinSpeed = 1;
 
         public Fighter()
         {
@@ -29,48 +37,60 @@ namespace KnightWar
         public Fighter(int level, int ammunition, int speed)
         {
             var randValue = new Random();
-            if (level > MaxLevel) { level = MaxLevel; }
-            if (ammunition > 5) { ammunition = 5; }
-            if (speed > 5) { speed = 5; }
-            Level = level <= 0 ? Level = randValue.Next(1, 5) : Level = level;
-            Ammunition = ammunition <= 0 ? Ammunition = randValue.Next(1, 5) : Ammunition = ammunition;
-            Speed = speed <= 0 ? Speed = randValue.Next(1, 5) : Speed = speed;
+            var maxSpeed = MaxSpeed;
+            var minSpeed = MinSpeed;
+            var type = WhoAmI();
+            if (FighterType.Horseman == (FighterType)Enum.Parse(typeof(FighterType), type, ignoreCase: true))
+            {
+                maxSpeed = 8;
+                minSpeed = 4;
+            }
+            level = level > MaxLevel ? MaxLevel : level;
+            Ammunition = ammunition > MaxAmmunition ? MaxAmmunition : ammunition;
+            Speed = speed > maxSpeed ? maxSpeed : speed;
+            Level = level < MinLevel ? randValue.Next(MinLevel, MaxLevel) : level;
+            Ammunition = ammunition < MinAmmunition ? randValue.Next(MinAmmunition, MaxAmmunition) : ammunition;
+            Speed = speed < minSpeed ? randValue.Next(minSpeed, maxSpeed) : speed;
             Health = 10 + (Level * Ammunition);
-            Move = 0;
+            Move = false;
+            Damage = 5;
         }
 
-        public void Attack(Fighter unit)
+        virtual public bool Attack(Army unit, int fighterIndex)
         {
             var rand = new Random();
-            var damage = 5 + ((this.Level / 2) * this.Ammunition);
-            if (rand.NextDouble() < (0.2 - (this.Level * 2 / 100)))
+            var damage = Damage + ((Level / 2) * Ammunition);
+            if (rand.NextDouble() < (0.2 - (Level * 2 / 100)))
             {
                 damage = 0;
-                Console.WriteLine("Loose))");
+                Print();
+                Console.WriteLine("Промахнулся");
                 Console.WriteLine();
+                return false;
             }
             else
             {
-                unit.Health -= damage;
-                this.Move++;
-                Console.WriteLine($"Нанесено {damage} урона");
-                Console.WriteLine();
+                unit.ArmyFighters[fighterIndex].Print();
+                unit.ArmyFighters[fighterIndex].Health -= damage;
+                Move = true;
+                Console.WriteLine($" Получил {damage} урона от");
+                Print();
+                Console.WriteLine($"И у него осталось {unit.ArmyFighters[fighterIndex].Health} здоровья\n");
+                return true;
             }
-            unit.Print();
         }
 
         public void Print()
         {
-            Console.WriteLine($"Level: {this.Level} Ammunition: {this.Ammunition} Speed: {this.Speed} Health: {this.Health}");
+            Console.WriteLine($"{WhoAmI()}\nLevel: {Level} Ammunition: {Ammunition} Speed: {Speed} Health: {Health}");
         }
 
         public void MoveZeroing()
         {
-            Move = 0;
+            Move = false;
         }
 
         public abstract string WhoAmI();
-      
     }
 
     public enum FighterType

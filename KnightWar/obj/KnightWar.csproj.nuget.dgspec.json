@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\C#project\\KnightWar\\KnightWar\\KnightWar.csproj": {}
+    "D:\\Projects\\KnightWar\\KnightWar\\KnightWar.csproj": {}
   },
   "projects": {
-    "D:\\C#project\\KnightWar\\KnightWar\\KnightWar.csproj": {
+    "D:\\Projects\\KnightWar\\KnightWar\\KnightWar.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\C#project\\KnightWar\\KnightWar\\KnightWar.csproj",
+        "projectUniqueName": "D:\\Projects\\KnightWar\\KnightWar\\KnightWar.csproj",
         "projectName": "KnightWar",
-        "projectPath": "D:\\C#project\\KnightWar\\KnightWar\\KnightWar.csproj",
+        "projectPath": "D:\\Projects\\KnightWar\\KnightWar\\KnightWar.csproj",
         "packagesPath": "C:\\Users\\demon\\.nuget\\packages\\",
-        "outputPath": "D:\\C#project\\KnightWar\\KnightWar\\obj\\",
+        "outputPath": "D:\\Projects\\KnightWar\\KnightWar\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\demon\\AppData\\Roaming\\NuGet\\NuGet.Config",

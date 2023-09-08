@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 
 namespace KnightWar
 {
@@ -32,11 +33,11 @@ namespace KnightWar
         public void DeleteDeadUnit()
         {
             int CountUnit = 0;
-            for (int i = ArmyFighters.Count; i > ArmyFighters.Count; i--)
+            for (int i = ArmyFighters.Count; i <= ArmyFighters.Count && i > 0; i--)
             {
-                if (ArmyFighters[i].Health <= 0)
+                if (ArmyFighters[i-1].Health <= 0)
                 {
-                    ArmyFighters.RemoveAt(i);
+                    ArmyFighters.RemoveAt(i-1);
                     CountUnit++;
                 }
 
@@ -47,66 +48,53 @@ namespace KnightWar
 
         public bool EveryoneMovedCheck()
         {
-            int moveValue = 0;
+            bool moveStatus = true;
             for (int i = 0; i < ArmyFighters.Count; i++)
             {
-                if (ArmyFighters[i].Move > 0)
+                if (ArmyFighters[i].Move == false)
                 {
-                    moveValue++;
+                    moveStatus = false;
+                    continue;
                 }
             }
 
-            return !(ArmyFighters.Count > moveValue);
-            //if (ArmyFighters.Count > moveValue)
-            //{
-            //    return false;
-            //}
-            //else
-            //{
-            //    return true;
-            //}
+            return moveStatus;
         }
 
-        public double GetFivePercentArmy()
+        public double GetPartArmy(double percent)
         {
             double partArmy = ArmyFighters.Count;
-            return partArmy = Math.Ceiling(partArmy * 0.05);
-        }
-
-        public double GetSixPercentArmy()
-        {
-            double partArmy = ArmyFighters.Count;
-            return partArmy = Math.Ceiling(partArmy * 0.06);
+            return partArmy = Math.Ceiling(partArmy * percent);
         }
 
         public List<int> HowPartArmyDidNotMove()
         {
-            var serialNumber = new List<int>();
+            var indexNumberList = new List<int>();
             for (int i = 0; i < ArmyFighters.Count; i++)
             {
-                if (ArmyFighters[i].Move == 0)
+                if (ArmyFighters[i].Move == false)
                 {
-                    serialNumber.Add(i);
+                    indexNumberList.Add(i);
                 }
             }
-            return serialNumber;
+            return indexNumberList;
         }
 
-        public List<int> GetSortListFasterFighter(List<int> serialNumberList)
+        public List<int> GetSortListFasterFighter(List<int> indexNumberList) 
         {
-            for (int i = 0; i < serialNumberList.Count; i++)
+            for (int i = 0; i < indexNumberList.Count; i++)
             {
-                for (int j = 1; j < serialNumberList.Count; j++)
+                for (int j = 1; j < indexNumberList.Count; j++)
                 {
-                    if (ArmyFighters[serialNumberList[i]].Speed < ArmyFighters[serialNumberList[j]].Speed)
+                    if (ArmyFighters[indexNumberList[i]].Speed < ArmyFighters[indexNumberList[j]].Speed)
                     {
-                        int number = serialNumberList[i];
-                        serialNumberList[i] = serialNumberList[j];
-                        serialNumberList[j] = number;
+                        int number = indexNumberList[i];
+                        indexNumberList[i] = indexNumberList[j];
+                        indexNumberList[j] = number;
                     }
                 }
             }
-            return new List<int>(serialNumberList);
+            return indexNumberList;
         }
 
         public void MoveZeroing()
