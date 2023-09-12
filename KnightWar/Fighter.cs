@@ -1,11 +1,4 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Security;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace KnightWar
 {
@@ -26,31 +19,20 @@ namespace KnightWar
         protected const int MinLevel = 1;
         protected const int MaxAmmunition = 5;
         protected const int MinAmmunition = 1;
-        protected const int MaxSpeed = 5;
-        protected const int MinSpeed = 1;
-
-        public Fighter()
-        {
-            
-        }
+        public virtual int MaxSpeed { get; protected set; }
+        public virtual int MinSpeed { get; protected set; }
 
         public Fighter(int level, int ammunition, int speed)
         {
             var randValue = new Random();
-            var maxSpeed = MaxSpeed;
-            var minSpeed = MinSpeed;
-            var type = WhoAmI();
-            if (FighterType.Horseman == (FighterType)Enum.Parse(typeof(FighterType), type, ignoreCase: true))
-            {
-                maxSpeed = 8;
-                minSpeed = 4;
-            }
+            MaxSpeed = 5;
+            MinSpeed = 1;
             level = level > MaxLevel ? MaxLevel : level;
             Ammunition = ammunition > MaxAmmunition ? MaxAmmunition : ammunition;
-            Speed = speed > maxSpeed ? maxSpeed : speed;
+            Speed = speed > MaxSpeed ? MaxSpeed : speed;
             Level = level < MinLevel ? randValue.Next(MinLevel, MaxLevel) : level;
             Ammunition = ammunition < MinAmmunition ? randValue.Next(MinAmmunition, MaxAmmunition) : ammunition;
-            Speed = speed < minSpeed ? randValue.Next(minSpeed, maxSpeed) : speed;
+            Speed = speed < MinSpeed ? randValue.Next(MinSpeed, MaxSpeed) : speed;
             Health = 10 + (Level * Ammunition);
             Move = false;
             Damage = 5;
@@ -90,9 +72,26 @@ namespace KnightWar
             Move = false;
         }
 
+        public void CreateUnknownFighter(List<Fighter> fighter, int level, int ammunition, int speed)
+        {
+            var randValue = new Random();
+            int randNumber = randValue.Next(1, 3);
+            switch (randNumber) 
+            {
+                case 1:
+                    fighter.Add( new Archer(level, ammunition, speed));
+                    break;
+                case 2:
+                    fighter.Add(new Horseman(level, ammunition, speed));
+                    break;
+                case 3:
+                    fighter.Add(new Infantry(level, ammunition, speed));
+                    break;
+            }
+        }
+
         public abstract string WhoAmI();
     }
-
     public enum FighterType
     {
         Unknown, 

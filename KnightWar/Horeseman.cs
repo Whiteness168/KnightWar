@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KnightWar
 {
     class Horseman : Fighter
     {
+        public override int MaxSpeed => 5;
+        public override int MinSpeed => 5;
         public override FighterType FighterType => FighterType.Horseman;
         public Horseman(int level, int ammunition, int speed) : base(level, ammunition, speed)
         {
@@ -18,9 +14,10 @@ namespace KnightWar
 
         public override bool Attack(Army unit, int fighterIndex)
         {
+            var rand = new Random();
             if (base.Attack(unit, fighterIndex))
             {
-                base.Attack(unit, fighterIndex);
+                base.Attack(unit, rand.Next(unit.ArmyFighters.Count));
             }
             return true;
         }

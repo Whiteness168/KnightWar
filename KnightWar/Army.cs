@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
 
 namespace KnightWar
 {
@@ -26,18 +20,17 @@ namespace KnightWar
 
         public bool CheckHealthArmy()
         {
-            if (ArmyFighters.Count > 0) { return true; }
-            else { return false; }
+            return ArmyFighters.Count > 0;
         }
 
         public void DeleteDeadUnit()
         {
             int CountUnit = 0;
-            for (int i = ArmyFighters.Count; i <= ArmyFighters.Count && i > 0; i--)
+            for (int i = ArmyFighters.Count - 1; i <= ArmyFighters.Count && i >= 0; i--)
             {
-                if (ArmyFighters[i-1].Health <= 0)
+                if (ArmyFighters[i].Health <= 0)
                 {
-                    ArmyFighters.RemoveAt(i-1);
+                    ArmyFighters.RemoveAt(i);
                     CountUnit++;
                 }
 
@@ -54,7 +47,7 @@ namespace KnightWar
                 if (ArmyFighters[i].Move == false)
                 {
                     moveStatus = false;
-                    continue;
+                    break;
                 }
             }
 
@@ -63,8 +56,7 @@ namespace KnightWar
 
         public double GetPartArmy(double percent)
         {
-            double partArmy = ArmyFighters.Count;
-            return partArmy = Math.Ceiling(partArmy * percent);
+            return Math.Ceiling(ArmyFighters.Count * percent);
         }
 
         public List<int> HowPartArmyDidNotMove()

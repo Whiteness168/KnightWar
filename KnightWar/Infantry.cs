@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KnightWar
 {
@@ -23,14 +19,14 @@ namespace KnightWar
 
         public override bool Attack(Army unit, int fighterIndex)
         {
-            var type = unit.ArmyFighters[fighterIndex].WhoAmI();
-            if (FighterType.Archer == (FighterType)Enum.Parse(typeof(FighterType), type, ignoreCase: true))
+            if (FighterType.Archer == unit.ArmyFighters[fighterIndex].FighterType)
             {
                 Damage = 10;
                 return base.Attack(unit, fighterIndex);
             }
             else 
-            { 
+            {
+                Damage = 5;
                 return base.Attack(unit, fighterIndex);
             }
         }
