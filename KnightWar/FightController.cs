@@ -1,10 +1,12 @@
-﻿using System;
-
-namespace KnightWar
+﻿namespace KnightWar
 {
-    class FightController
+    public class FightController
     {
         private bool _controlWent;
+        private const int _delay = 700;
+        private const double _percentFirstAttack = 0.05;
+        private const double _percentSecondAttack = 0.06;
+
         private bool WhoIsFirst()
         {
             var rand = new Random();
@@ -13,7 +15,6 @@ namespace KnightWar
                 Console.WriteLine("Начинает первая армия");
                 Console.WriteLine();
                 return _controlWent = true;
-
             }
             else
             {
@@ -23,14 +24,14 @@ namespace KnightWar
             }
         }
 
-        private void Battle(Army attackingArmy, Army AttackedArmy, List<int> serialNumberList, double partArmy)
+        private void Battle(Army attackingArmy, Army attackedArmy, List<int> indexList, double partArmy)
         {
             var rand = new Random();
-            for (int i = 0; i < serialNumberList.Count; i++)
+            for (int i = 0; i < indexList.Count; i++)
             {
                 if (i <= partArmy)
                 {
-                    attackingArmy.ArmyFighters[serialNumberList[i]].Attack(AttackedArmy, rand.Next(AttackedArmy.ArmyFighters.Count));
+                    attackingArmy.ArmyFighters[indexList[i]].Attack(attackedArmy, rand.Next(attackedArmy.ArmyFighters.Count));
                 }
             }
         }
@@ -39,51 +40,45 @@ namespace KnightWar
         {
             do
             {
-                if (WhoIsFirst())
-                {
-                    Battle(armyFirst, armySecond,
-                        armyFirst.GetSortListFasterFighter(armyFirst.HowPartArmyDidNotMove()), armyFirst.GetPartArmy(0.05));
-                    armySecond.DeleteDeadUnit();
-                    _controlWent = false;
-                }
-                else
-                {
-                    Battle(armySecond, armyFirst,
-                         armySecond.GetSortListFasterFighter(armySecond.HowPartArmyDidNotMove()), armySecond.GetPartArmy(0.06));
-                    armyFirst.DeleteDeadUnit();
-                    _controlWent = true;
-                }
+                WhoIsFirst();
+                var moveControl = 0;
 
-                Thread.Sleep(700);
-
-                if (_controlWent)
+                while (moveControl != 2) 
                 {
-                    Battle(armyFirst, armySecond,
-                        armyFirst.GetSortListFasterFighter(armyFirst.HowPartArmyDidNotMove()), armyFirst.GetPartArmy(0.05));
-                    armySecond.DeleteDeadUnit();
-                    _controlWent = false;
+                    if (_controlWent == true)
+                    {
+                        Battle(armyFirst, armySecond,
+                            armyFirst.GetSortListFasterFighter(armyFirst.HowPartArmyDidNotMove()), armyFirst.GetPartArmy(_percentFirstAttack));
+                        armySecond.DeleteDeadUnit();
+                        _controlWent = false;
+                        moveControl += 1;
+                    }
+                    else if (_controlWent == false)
+                    {
+                        Battle(armySecond, armyFirst,
+                             armySecond.GetSortListFasterFighter(armySecond.HowPartArmyDidNotMove()), armySecond.GetPartArmy(_percentSecondAttack));
+                        armyFirst.DeleteDeadUnit();
+                        _controlWent = true;
+                        moveControl += 1;
+                    }
                 }
-                else
-                {
-                    Battle(armySecond, armyFirst,
-                         armySecond.GetSortListFasterFighter(armySecond.HowPartArmyDidNotMove()), armySecond.GetPartArmy(0.06));
-                    armyFirst.DeleteDeadUnit();
-                    _controlWent = true;
-                }
-
-                Thread.Sleep(700);
-
+                Thread.Sleep(_delay);
             } while (!armyFirst.EveryoneMovedCheck() && !armySecond.EveryoneMovedCheck());
 
-            armyFirst.MoveZeroing();
-            armySecond.MoveZeroing();
+            armyFirst.ResetUnitMove();
+            armySecond.ResetUnitMove();
         }
 
-        public void ShowWinner(List<Fighter> ArmyFirst)
+        public void ShowWinner(List<Fighter> fighters)
         {
-            if (ArmyFirst.Count == 0) { Console.WriteLine("Победила первая армия"); }
-            else { Console.WriteLine("Победила вторая армия"); }
-
+            if (fighters.Count == 0)
+            {
+                Console.WriteLine("\nПобедила первая армия");
+            }
+            else 
+            {
+                Console.WriteLine("\nПобедила вторая армия");
+            }
         }
     }
 }

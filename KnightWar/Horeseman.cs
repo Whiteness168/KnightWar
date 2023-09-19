@@ -1,30 +1,31 @@
-﻿using System;
-
-namespace KnightWar
+﻿namespace KnightWar
 {
-    class Horseman : Fighter
+    public class Horseman : Fighter
     {
-        public override int MaxSpeed => 5;
-        public override int MinSpeed => 5;
+        public override int MaxSpeed => 8;
+        public override int MinSpeed => 4;
         public override FighterType FighterType => FighterType.Horseman;
+
         public Horseman(int level, int ammunition, int speed) : base(level, ammunition, speed)
         {
-
         }
 
-        public override bool Attack(Army unit, int fighterIndex)
+        public override bool Attack(Army army, int fighterIndex)
         {
             var rand = new Random();
-            if (base.Attack(unit, fighterIndex))
+
+            if (base.Attack(army, fighterIndex))
             {
-                base.Attack(unit, rand.Next(unit.ArmyFighters.Count));
+                for(int i = 0; i < army.ArmyFighters.Count; i++)
+                {
+                    if (army.ArmyFighters[i].Health > 0)
+                    {
+                        base.Attack(army, i);
+                        break;
+                    }
+                }
             }
             return true;
-        }
-
-        public override string WhoAmI()
-        {
-            return "Horseman";
         }
     }
 }

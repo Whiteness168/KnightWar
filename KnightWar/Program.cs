@@ -1,29 +1,29 @@
-﻿using System;
-
-namespace KnightWar
+﻿namespace KnightWar
 {
     class Program
     {
         static void Main(string[] args)
         {
-
             var armyFirst = new Army();
             var armySecond = new Army();
-            var createArmies = new ArmyController();
             var fight = new FightController();
+            var inputControl = new InputOutputController();
 
-            createArmies.CreateArmies(armyFirst.ArmyFighters, armySecond.ArmyFighters);
+            inputControl.OutputGameInstruction();
+            
+            inputControl.InputProcessing(armyFirst);
+            inputControl.InputProcessing(armySecond);
+
+            inputControl.ShowAllArmies(armyFirst, armySecond);
+
+            inputControl.PresEnter();
 
             while (armyFirst.CheckHealthArmy() && armySecond.CheckHealthArmy())
             {
                 fight.StartFight(armyFirst, armySecond);
             }
 
-             Console.WriteLine();
-
-             fight.ShowWinner(armyFirst.ArmyFighters); 
-
-
+            fight.ShowWinner(armyFirst.ArmyFighters);
         }
     }
 }

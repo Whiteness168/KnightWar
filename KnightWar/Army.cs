@@ -1,23 +1,9 @@
-﻿using System;
-
-namespace KnightWar
+﻿namespace KnightWar
 {
-    internal class Army
+    public class Army
     {
         public List<Fighter> ArmyFighters = new List<Fighter>();
-
-        private List<Fighter> _fighters = new List<Fighter>();
-        public IReadOnlyList<Fighter> Fighters => _fighters;
-        //public IReadOnlyList<Fighter> Fighters { get { return _fighters; } }
-
-        public void AddFighter(FighterType fighterType)
-        {
-            if (fighterType == FighterType.Archer)
-            {
-                _fighters.Add(new Archer(1, 1, 1));
-            }
-        }
-
+       
         public bool CheckHealthArmy()
         {
             return ArmyFighters.Count > 0;
@@ -25,23 +11,23 @@ namespace KnightWar
 
         public void DeleteDeadUnit()
         {
-            int CountUnit = 0;
-            for (int i = ArmyFighters.Count - 1; i <= ArmyFighters.Count && i >= 0; i--)
+            int countUnit = 0;
+  
+            for (int i = ArmyFighters.Count - 1; i >= 0; i--)
             {
                 if (ArmyFighters[i].Health <= 0)
                 {
                     ArmyFighters.RemoveAt(i);
-                    CountUnit++;
+                    countUnit++;
                 }
-
             }
-            Console.WriteLine($"Погибло {CountUnit} бойцов");
-
+            Console.WriteLine($"Погибло {countUnit} бойцов");
         }
 
         public bool EveryoneMovedCheck()
         {
             bool moveStatus = true;
+            
             for (int i = 0; i < ArmyFighters.Count; i++)
             {
                 if (ArmyFighters[i].Move == false)
@@ -50,7 +36,6 @@ namespace KnightWar
                     break;
                 }
             }
-
             return moveStatus;
         }
 
@@ -89,11 +74,11 @@ namespace KnightWar
             return indexNumberList;
         }
 
-        public void MoveZeroing()
+        public void ResetUnitMove()
         {
             for (var i = 0; ArmyFighters.Count > i; i++)
             {
-                ArmyFighters[i].MoveZeroing();
+                ArmyFighters[i].ResetUnitMove();
             }
         }
     }

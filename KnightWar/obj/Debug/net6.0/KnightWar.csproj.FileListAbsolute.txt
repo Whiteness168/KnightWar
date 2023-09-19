@@ -28,3 +28,10 @@ D:\Projects\KnightWar\KnightWar\bin\Debug\net6.0\KnightWar.dll
 D:\Projects\KnightWar\KnightWar\bin\Debug\net6.0\KnightWar.pdb
 D:\Projects\KnightWar\KnightWar\obj\Debug\net6.0\KnightWar.genruntimeconfig.cache
 D:\Projects\KnightWar\KnightWar\obj\Debug\net6.0\ref\KnightWar.dll
+D:\Projects\KnightWar\KnightWar\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Projects\KnightWar\KnightWar\bin\Debug\net6.0\System.Drawing.Common.dll
+D:\Projects\KnightWar\KnightWar\bin\Debug\net6.0\System.Windows.Extensions.dll
+D:\Projects\KnightWar\KnightWar\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Projects\KnightWar\KnightWar\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\Projects\KnightWar\KnightWar\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\Projects\KnightWar\KnightWar\obj\Debug\net6.0\KnightWar.csproj.CopyComplete

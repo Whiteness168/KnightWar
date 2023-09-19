@@ -1,21 +1,12 @@
-﻿using System;
-
-namespace KnightWar
+﻿namespace KnightWar
 {
-    class Infantry : Fighter
+    public class Infantry : Fighter
     {
-
         public Infantry(int level, int ammunition, int speed) : base(level, ammunition, speed)
         {
-
         }
     
         public override FighterType FighterType => FighterType.Infantry;
-
-        public override string WhoAmI()
-        {
-            return "Infantry";
-        }
 
         public override bool Attack(Army unit, int fighterIndex)
         {

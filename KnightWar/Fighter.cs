@@ -1,16 +1,12 @@
-﻿using System;
-
-namespace KnightWar
+﻿namespace KnightWar
 {
-    abstract class Fighter
+    public abstract class Fighter
     {
-
         public int Level { get; protected set; }
         public int Ammunition { get; protected set; }
         public int Speed { get; protected set; }
         public int Health { get; protected set; }
         public bool Move { get; protected set; }
-
         public int Damage { get; protected set; }
 
         public abstract FighterType FighterType { get; }
@@ -19,6 +15,7 @@ namespace KnightWar
         protected const int MinLevel = 1;
         protected const int MaxAmmunition = 5;
         protected const int MinAmmunition = 1;
+
         public virtual int MaxSpeed { get; protected set; }
         public virtual int MinSpeed { get; protected set; }
 
@@ -38,60 +35,39 @@ namespace KnightWar
             Damage = 5;
         }
 
-        virtual public bool Attack(Army unit, int fighterIndex)
+        public virtual bool Attack(Army army, int fighterIndex)
         {
             var rand = new Random();
             var damage = Damage + ((Level / 2) * Ammunition);
+
             if (rand.NextDouble() < (0.2 - (Level * 2 / 100)))
             {
-                damage = 0;
                 Print();
                 Console.WriteLine("Промахнулся");
                 Console.WriteLine();
                 return false;
             }
-            else
-            {
-                unit.ArmyFighters[fighterIndex].Print();
-                unit.ArmyFighters[fighterIndex].Health -= damage;
-                Move = true;
-                Console.WriteLine($" Получил {damage} урона от");
-                Print();
-                Console.WriteLine($"И у него осталось {unit.ArmyFighters[fighterIndex].Health} здоровья\n");
-                return true;
-            }
+
+            army.ArmyFighters[fighterIndex].Print();
+            army.ArmyFighters[fighterIndex].Health -= damage;
+            Move = true;
+            Console.WriteLine($" Получил {damage} урона от");
+            Print();
+            Console.WriteLine($"И у него осталось {army.ArmyFighters[fighterIndex].Health} здоровья\n");
+            return true;
         }
 
         public void Print()
         {
-            Console.WriteLine($"{WhoAmI()}\nLevel: {Level} Ammunition: {Ammunition} Speed: {Speed} Health: {Health}");
+            Console.WriteLine($"{FighterType}\nLevel: {Level} Ammunition: {Ammunition} Speed: {Speed} Health: {Health}");
         }
 
-        public void MoveZeroing()
+        public void ResetUnitMove()
         {
             Move = false;
         }
-
-        public void CreateUnknownFighter(List<Fighter> fighter, int level, int ammunition, int speed)
-        {
-            var randValue = new Random();
-            int randNumber = randValue.Next(1, 3);
-            switch (randNumber) 
-            {
-                case 1:
-                    fighter.Add( new Archer(level, ammunition, speed));
-                    break;
-                case 2:
-                    fighter.Add(new Horseman(level, ammunition, speed));
-                    break;
-                case 3:
-                    fighter.Add(new Infantry(level, ammunition, speed));
-                    break;
-            }
-        }
-
-        public abstract string WhoAmI();
     }
+
     public enum FighterType
     {
         Unknown, 
